@@ -1,0 +1,35 @@
+version: '3'
+
+# networks:
+#   internal:
+#     driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.16.11.0/24
+#           gateway: 172.16.11.1
+
+services:
+  db:
+    container_name: db
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 1q2w3e
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./scripts/mysql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    restart: always
+  
+  app:
+    build: .
+    volumes:
+    - .:/app
+    - ~/.m2:/root/.m2
+    working_dir: /app
+    command: bash -c "mvn clean package && mvn assembly:single && java -jar server.jar"
+    ports:
+    - "8080:8080"
+    depends_on:
+    - db

@@ -21,7 +21,7 @@ public class SessionFactoryUtil {
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/messenger");
+        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://db:3306/messenger");
         configuration.setProperty("hibernate.connection.username", "javaapp");
         configuration.setProperty("hibernate.connection.password", "1q2w3e");
         configuration.setProperty("hibernate.show_sql", hibernate_show_sql);
