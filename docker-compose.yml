@@ -23,12 +23,13 @@ services:
     restart: always
   
   app:
+    container_name: javaapp
     build: .
     volumes:
     - .:/app
     - ~/.m2:/root/.m2
     working_dir: /app
-    command: bash -c "mvn clean package && mvn assembly:single && java -jar server.jar"
+    command: bash -c "mvn clean package && mvn assembly:single && java -jar server.jar" #&& mvn exec:exec
     ports:
     - "8080:8080"
     depends_on:

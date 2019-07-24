@@ -37,6 +37,27 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<version>1.6.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>script-chmod</id>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<executable>chmod</executable>-->
+                    <!--<arguments>-->
+                        <!--<argument>o+wx</argument>-->
+                        <!--<argument>server.jar</argument>-->
+                    <!--</arguments>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
