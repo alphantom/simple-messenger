@@ -14,6 +14,7 @@ public class AccountService {
     private final Map<String, User> loginToProfile;
     private UserService userService;
     // TODO think if it needs??
+    // TODO use as Singleton
     public AccountService() {
         userService = new UserService();
         loginToProfile = userService.findAllUsers().stream().collect(Collectors.toMap(User::getName, value -> value));
