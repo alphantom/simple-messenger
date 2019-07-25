@@ -13,8 +13,8 @@ public class LoginServlet extends HttpServlet {
 
     private final AccountService accountService;
 
-    public LoginServlet(AccountService service) {
-        accountService = service;
+    public LoginServlet() {
+        accountService = AccountService.getInstance();
     }
 
     @Override
@@ -22,13 +22,13 @@ public class LoginServlet extends HttpServlet {
         // TODO: create session?
         // TODO: redirect to home page
         resp.setContentType("text/html;charset=utf-8");
-        User acc;
-        if ((acc = accountService.getUserByLogin(req.getParameter("login"))) != null) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().println("Authorized: " + acc.getName());
-        } else {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.getWriter().println("Unauthorized");
-        }
+//        User acc;
+//        if ((acc = accountService.getUserByLogin(req.getParameter("login"))) != null) {
+//            resp.setStatus(HttpServletResponse.SC_OK);
+//            resp.getWriter().println("Authorized: " + acc.getName());
+//        } else {
+//            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            resp.getWriter().println("Unauthorized");
+//        }
     }
 }

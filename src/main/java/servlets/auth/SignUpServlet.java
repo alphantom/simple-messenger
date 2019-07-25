@@ -12,13 +12,13 @@ import java.io.IOException;
 public class SignUpServlet extends HttpServlet {
     private final AccountService accountService;
 
-    public SignUpServlet(AccountService service) {
-        accountService = service;
+    public SignUpServlet() {
+        accountService = AccountService.getInstance();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        accountService.addNewUser(new User(req.getParameter("login"), req.getParameter("Password")));
+        accountService.addNewUser(new User(req.getParameter("login"), req.getParameter("Password"), req.getSession().getId()));
         // TODO: create session?
         // TODO: redirect to home page
         resp.setStatus(HttpServletResponse.SC_OK);

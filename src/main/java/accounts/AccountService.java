@@ -9,29 +9,34 @@ import java.util.stream.Collectors;
 
 
 public class AccountService {
-    // TODO change to 'currentUsers'
-    // TODO set id as key, session_id as value??
-    private final Map<String, User> loginToProfile;
+
+    private final Map<String, User> currentUsers;
     private UserService userService;
-    // TODO think if it needs??
-    // TODO use as Singleton
-    public AccountService() {
+    private static AccountService instance;
+
+    private AccountService() {
         userService = new UserService();
-        loginToProfile = userService.findAllUsers().stream().collect(Collectors.toMap(User::getName, value -> value));
+        currentUsers = userService.findAllUsers().stream().collect(Collectors.toMap(User::getName, value -> value));
+    }
+
+    public static AccountService getInstance() {
+        if (instance == null) {
+            instance = new AccountService(); // TODO synchronized?
+        }
+        return instance;
     }
 
     public void addNewUser(User userProfile) {
         userService.saveUser(userProfile);
-        loginToProfile.put(userProfile.getName(), userProfile);
+        currentUsers.put(userProfile.getSessionId(), userProfile);
     }
 
     public void logout(User user) {
-//        loginToProfile.put(user.getId(), null);
         userService.closeSession(user);
     }
 
-    public User getUserByLogin(String login) {
-        return loginToProfile.get(login);
+    public User find(String sessionId) {
+        return currentUsers.get(sessionId);
     }
 
 }

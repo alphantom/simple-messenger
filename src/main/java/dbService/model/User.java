@@ -37,6 +37,13 @@ public class User implements Serializable {
     }
 
     @SuppressWarnings("UnusedDeclaration")
+    public User(String name, String password, String sessionId) {
+        this.setName(name);
+        this.setPassword(password);
+        this.setSessionId(password);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
     public String getName() {
         return name;
     }

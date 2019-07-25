@@ -1,6 +1,8 @@
 package main;
 
 import accounts.AccountService;
+import filters.AuthFilter;
+import org.eclipse.jetty.server.Dispatcher;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -11,20 +13,22 @@ import servlets.auth.LoginServlet;
 import servlets.auth.LogoutServlet;
 import servlets.auth.SignUpServlet;
 
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 import java.util.logging.Logger;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        AccountService accountService = new AccountService();
-// TODO change account service to Singleton.
-// TODO Don't set it as parameter to servlets.
-// TODO May be use one auth servlet and create UserController
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/auth/signup");
-        context.addServlet(new ServletHolder(new LoginServlet(accountService)), "/auth/login");
+
+        context.addServlet(new ServletHolder(new SignUpServlet()), "/auth/signup");
+        context.addServlet(new ServletHolder(new LoginServlet()), "/auth/login");
         context.addServlet(new ServletHolder(new LogoutServlet()), "/auth/logout");
         // TODO: should i use one authServlet for handling requests?
+
+        context.addFilter(AuthFilter.class, "/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
 
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setResourceBase("public_html");
